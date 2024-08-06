@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoice - Sweet Crumbs</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 20px;
+			background-color: #f9f9f9;
+		}
+		.invoice-container {
+			max-width: 800px;
+			margin: auto;
+			padding: 20px;
+			background: #ffffff;
+			border: 1px solid #dddddd;
+			border-radius: 8px;
+		}
+		.invoice-header, .invoice-footer {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+		.invoice-header h1 {
+			margin: 0;
+			font-size: 24px;
+			color: #D07597;
+		}
+		.invoice-header p {
+			margin: 5px 0;
+		}
+		.invoice-details, .invoice-items, .invoice-summary {
+			margin-bottom: 20px;
+		}
+		.invoice-details .row {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 10px;
+		}
+		.invoice-details .row div {
+			width: 48%;
+		}
+		.invoice-items table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
+		.invoice-items th, .invoice-items td {
+			border: 1px solid #dddddd;
+			padding: 8px;
+			text-align: left;
+		}
+		.invoice-items th {
+			background-color: #f2f2f2;
+		}
+		.invoice-summary {
+			text-align: right;
+		}
+		.invoice-summary .total {
+			font-size: 18px;
+			font-weight: bold;
+		}
+	</style>
+	<script>
+		function loadInvoice() {
+			const nama = localStorage.getItem('nama');
+			const kelamin = localStorage.getItem('kelamin');
+			const email = localStorage.getItem('email');
+			const pembayaran = localStorage.getItem('pembayaran');
+			const alamat = localStorage.getItem('alamat');
+			const product = localStorage.getItem('product');
+			const price = parseFloat(localStorage.getItem('price'));
+			const quantity = parseInt(localStorage.getItem('quantity'));
+			const total = (price * quantity).toFixed(2);
+
+			document.getElementById('invoice-nama').innerText = nama;
+			document.getElementById('invoice-alamat').innerText = alamat;
+			document.getElementById('invoice-email').innerText = email;
+			document.getElementById('product-name').innerText = product;
+			document.getElementById('product-quantity').innerText = quantity;
+			document.getElementById('product-price').innerText = `Rp. ${price}`;
+			document.getElementById('product-total').innerText = `Rp. ${total}`;
+			document.getElementById('invoice-subtotal').innerText = `Rp. ${total}`;
+		}
+
+		document.addEventListener('DOMContentLoaded', loadInvoice);
+	</script>
+</head>
+<body>
+
+<div class="invoice-container">
+	<div class="invoice-header">
+		<h1>Sweet Crumbs</h1>
+		<p>Jl.Dipati Ukur No.112-116, Kota Bandung</p>
+		<p>Email: indah.10523179@mahasiswa.unikom.ac.id | Nomor Telpone: 0878-2210-2129</p>
+	</div>
+
+	<div class="invoice-details">
+		<div class="row">
+			<div>
+				<p><strong>Invoice To:</strong></p>
+				<p>Customer Name: <span id="invoice-nama"></span></p>
+				<p>Address: <span id="invoice-alamat"></span></p>
+				<p>Email: <span id="invoice-email"></span></p>
+			</div>
+			<div>
+				<p><strong>Invoice Details:</strong></p>
+				<p>Invoice Number: #001</p>
+				<p>Date: August 5, 2024</p>
+				<p>Due Date: August 7, 2024</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="invoice-items">
+		<table>
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Description</th>
+					<th>Quantity</th>
+					<th>Unit Price</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="product-name"></td>
+					<td>Delicious cupcake</td>
+					<td id="product-quantity"></td>
+					<td id="product-price"></td>
+					<td id="product-total"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="invoice-summary">
+		<p><strong>Total:</strong> <span id="invoice-subtotal"></span></p>
+	</div>
+	
+	<div class="invoice-footer">
+		<p>Thank you for your purchase!</p>
+		<p>If you have any questions, please contact us at indah.10523179@mahasiswa.unikom.ac.id.</p>
+	</div>
+</div>
+
+</body>
+</html>

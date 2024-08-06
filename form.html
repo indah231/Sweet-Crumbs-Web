@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Form Registrasi Pembelian</title>
+	<script>
+		function submitForm(event) {
+			event.preventDefault(); // Mencegah pengiriman formulir secara default
+
+			const nama = document.getElementById('nama').value;
+			const kelamin = document.querySelector('input[name="kelamin"]:checked').value;
+			const email = document.getElementById('email').value;
+			const pembayaran = document.getElementById('pembayaran').value;
+			const alamat = document.getElementById('alamat').value;
+			const product = document.getElementById('product').value;
+			const price = document.getElementById('price').value;
+			const quantity = document.getElementById('quantity').value;
+
+			localStorage.setItem('nama', nama);
+			localStorage.setItem('kelamin', kelamin);
+			localStorage.setItem('email', email);
+			localStorage.setItem('pembayaran', pembayaran);
+			localStorage.setItem('alamat', alamat);
+			localStorage.setItem('product', product);
+			localStorage.setItem('price', price);
+			localStorage.setItem('quantity', quantity);
+			
+			window.location.href = 'invoice.html';
+		}
+		
+		function resetForm() {
+			document.querySelector('form').reset();
+		}
+		
+		function loadProductInfo() {
+			const params = new URLSearchParams(window.location.search);
+			const product = params.get('product');
+			const price = params.get('price');
+			
+			document.getElementById('product').value = product || '';
+			document.getElementById('price').value = price || '';
+		}
+		
+		window.onload = loadProductInfo;
+	</script>
+</head>
+<body>
+
+	<h2><b>Form Registrasi Pembelian</b></h2>
+	<form onsubmit="submitForm(event)">
+		<hr>
+		<table>
+			<tr>
+				<td>Nama Anda</td>
+				<td>: <input type="text" id="nama" name="nama" size="30"></td>
+			</tr>
+			<tr>
+				<td>Jenis Kelamin</td>
+				<td>:
+					<input type="radio" id="pria" name="kelamin" value="Pria">Pria
+					<input type="radio" id="wanita" name="kelamin" value="Wanita">Wanita
+				</td>
+			</tr>
+			<tr>
+				<td>E-Mail</td>
+				<td>: <input type="text" id="email" name="email" size="30"></td>
+			</tr>
+			<tr>
+				<td>Pembayaran Transfer</td>
+				<td>: 
+					<select id="pembayaran" name="pembayaran">
+					<option value="BCA">BCA</option>
+						<option value="Mandiri">Mandiri</option>
+						<option value="BNI">BNI</option>
+						<option value="BRI">BRI</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Alamat Pengiriman</td>
+				<td>: <textarea id="alamat" name="alamat" cols="40" rows="5"></textarea></td>
+			</tr>
+			<tr>
+				<td>Jumlah Produk</td>
+				<td>: <input type="number" id="quantity" name="quantity" min="1" max="100"></td>
+			</tr>
+			<tr>
+				<td>Nama Produk</td>
+				<td>: <input type="text" id="product" name="product" readonly></td>
+			</tr>
+			<tr>
+				<td>Harga Produk</td>
+				<td>: <input type="text" id="price" name="price" readonly></td>
+			</tr>
+		</table>
+		<hr>
+		<input type="submit" value="Kirim">
+		<input type="button" value="Reset" onclick="resetForm()">
+	</form>
+
+</body>
+</html>
